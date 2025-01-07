@@ -1,7 +1,7 @@
 const mongoose = require('mongoose'); // Import mongoose directly
-
+mongoose.set('strictQuery', true); // Or false, based on your use case
 const connectToMongoDB = async () => {
-    const mongoURI = process.env.MONGODB_URI || "mongodb://localhost:27017/short-url"; // Default to local MongoDB
+    const mongoURI = process.env.MONGODB_URI || "mongodb+srv://ak9102848:QW%4012.45a@cluster0.4pdkg.mongodb.net/"; // Default to local MongoDB
 
     try {
         await mongoose.connect(mongoURI, {

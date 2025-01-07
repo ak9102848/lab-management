@@ -25,7 +25,7 @@ router.post("/", handleUserSignup);
 router.post("/login", handleUserLogin);
 
 // Route to handle profile photo upload
-router.post('/upload', restrictToLoggedinUserOnly, upload.single('photo'), handleProfilePhotoUpload);
+// router.post('/upload', restrictToLoggedinUserOnly, upload.single('photo'), handleProfilePhotoUpload);
 
 
 

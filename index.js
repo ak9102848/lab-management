@@ -11,7 +11,7 @@ const staticRoute = require("./routes/staticRouter");
 const userRoute = require("./routes/user");
 const profileRoute = require("./routes/profile");
 
-const multer = require("multer");
+// const multer = require("multer");
 
 // Initialize Express
 const app = express();
@@ -33,15 +33,15 @@ app.set("view engine", "ejs");
 app.set("views", path.resolve("./views"));
 
 // Configure multer for file uploads
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "uploads/"); // Save to uploads directory
-  },
-  filename: function (req, file, cb) {
-    cb(null, Date.now() + path.extname(file.originalname)); // Add timestamp to filename
-  },
-});
-const upload = multer({ storage });
+//  const storage = multer.diskStorage({
+//   destination: function (req, file, cb) {
+//     cb(null, "uploads/"); // Save to uploads directory
+//   },
+//   filename: function (req, file, cb) {
+//     cb(null, Date.now() + path.extname(file.originalname)); // Add timestamp to filename
+//   },
+// });
+// const upload = multer({ storage });
 
 // Connect to MongoDB
 const mongoURI = process.env.MONGODB || "mongodb://localhost:27017/short-url";

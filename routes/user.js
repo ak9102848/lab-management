@@ -16,7 +16,7 @@ const router = express.Router();
   },
 });*/
 
-const upload = multer({ dest: 'uploads/' });
+//const upload = multer({ dest: 'uploads/' });
 
 // Route to handle user signup
 router.post("/", handleUserSignup);

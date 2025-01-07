@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab Inventory System</title>
+    <link rel="icon" href="https://th.bing.com/th/id/OIP.U7wPiyKBPvHs0Zm0oADOYwHaE8?w=600&h=400&rs=1&pid=ImgDetMain">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        
+
+        .low-stock-warning {
+            color: #fff;
+            padding: 10px;
+            margin-top: 20px;
+            /* text-align: center; */
+            display: none;
+            margin: 10px auto;
+            /* border: 1px solid black; */
+            position: relative;
+            top: 5px;
+            left: 0px;
+        }
+        /* .low-stock-warning h2{
+            position: relative;
+            top: 5px;
+            left: -275px;
+
+        } */
+        
+        .carousel-item{
+            margin: 15px;
+        }
+
+        .carousel-wrapper{
+            overflow-x: auto;
+            scrollbar-width: none;
+            scroll-behavior: smooth
+        }
+
+        .cards{
+            animation: autoShowAnimation both;
+            animation-timeline: view(70% 10%);
+        }
+        @keyframes autoShowAnimation{
+            from{
+                opacity: 0.1;
+                transform: translate(150px) scale(0.8);
+            }to{
+                opacity: 1;
+                transform: translate(0) scale(1);
+            }
+        }
+
+        #expiring-soon h2{
+            font-size: x-large;
+        }
+
+        #idcard1{
+            position: relative;
+            top: 1;
+            left: -45px;
+            width: 625px;
+        }
+
+        #idcard2{
+            position: relative;
+            top: 1px;
+            left: -40px;
+            width: 625px;
+        }
+
+        
+
+    </style>
+</head>
+<body class="bg-[#101921] text-white font-sans">
+
+    <!-- Navigation Bar -->
+    <nav class="bg-gray-800 p-4 fixed top-0 left-0 w-full z-50">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="#" class="text-xl font-bold text-white">Web Lab</a>
+            <ul class="flex space-x-4">
+                <li><a href="#" class="text-white hover:text-gray-400">Home</a></li>
+                <li><a href="/labtour" class="text-white hover:text-gray-400">Lab Tour</a></li>
+                <li><a href="/labnotes" class="text-white hover:text-gray-400">Lab Notes</a></li>
+                <li><a href="/inventory" class="text-white hover:text-gray-400">Inventory</a></li>
+                <li><a href="http://localhost:8001/profile" class="text-white hover:text-gray-400">Profile</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container mx-auto pt-20 p-4">
+        <!-- Welcome Section -->
+        <section id="home" class="mb-12">
+            <h1 class="text-3xl font-bold mb-6 p-6">Welcome to the <span class="inv">WebLab Inventory System</span></h1>
+
+            <!-- Expiring Soon Section -->
+            <div class="bg-gray-700 rounded-lg p-6 h-45  w-full">
+                <section id="expiring-soon" class="mb-8">
+                    <h2 class="font-bold mb-4">Expiring Soon</h2>
+                    <ul id="recent-activities" class="space-y-3" >
+                        <!-- Items will be populated here from localStorage -->
+                    </ul>
+                </section>
+                <div id="expired-items" class="expireItem ">
+                    <h2 class="text-2xl font-bold mb-4">Expired Items</h2>
+                    <ul id="expired-items-list" class="space-y-2"></ul>
+                </div>
+                <div id="low-stock-warning" class="low-stock-warning ">
+                    <h2 class="text-2xl font-bold mb-4">Low on stock:</h2>
+                    <ul id="low-stock-list"></ul>
+                </div>
+                <div id="stock-alert" style="display:none; color:red; font-weight:bold;">
+                    Stock is running low for some items!
+                </div>
+            </div>
+
+            <!-- Expired Items Section -->
+            
+
+            <!-- Low Stock Warning -->
+           
+
+            <!-- Stock Alert -->
+            
+        </section>
+            
+
+        <!-- Lab Tour Section -->
+        <section id="lab-tour" class="mb-12">
+            <h2 class="text-2xl font-bold mb-4">
+                <a href="/labtour" class="text-2xl font-bold mb-4">Lab Tour</a>
+            </h2>
+            <div class="cards relative w-full max-w-full">
+                <div class="carousel-wrapper flex overflow-x-scroll snap-x snap-mandatory">
+                    <div class="carousel-item bg-gray-700 rounded-lg overflow-hidden flex-shrink-0 w-full sm:w-1/2 lg:w-1/3 snap-start">
+                        <img src="https://images.unsplash.com/photo-1582719471384-894fbb16e074" alt="Chemical storage" class="w-full h-48 object-cover">
+                        <div class="p-4">
+                            <h3 class="font-semibold mb-2">Chemical Storage</h3>
+                            <p class="text-sm text-gray-300">Secure storage facilities for various chemicals and compounds.</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item bg-gray-700 rounded-lg overflow-hidden flex-shrink-0 w-full sm:w-1/2 lg:w-1/3 snap-start">
+                        <img src="https://images.unsplash.com/photo-1581093806997-124204d9fa9d" alt="Research area" class="w-full h-48 object-cover">
+                        <div class="p-4">
+                            <h3 class="font-semibold mb-2">Research Area</h3>
+                            <p class="text-sm text-gray-300">Dedicated space for researchers to conduct experiments and analyze data.</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item bg-gray-700 rounded-lg overflow-hidden flex-shrink-0 w-full sm:w-1/2 lg:w-1/3 snap-start">
+                        <img src="https://images.unsplash.com/photo-1581093806997-124204d9fa9d" alt="Research area" class="w-full h-48 object-cover">
+                        <div class="p-4">
+                            <h3 class="font-semibold mb-2">Research Area</h3>
+                            <p class="text-sm text-gray-300">Dedicated space for researchers to conduct experiments and analyze data.</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item bg-gray-700 rounded-lg overflow-hidden flex-shrink-0 w-full sm:w-1/2 lg:w-1/3 snap-start">
+                        <img src="https://images.unsplash.com/photo-1581093806997-124204d9fa9d" alt="Research area" class="w-full h-48 object-cover">
+                        <div class="p-4">
+                            <h3 class="font-semibold mb-2">Research Area</h3>
+                            <p class="text-sm text-gray-300">Dedicated space for researchers to conduct experiments and analyze data.</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item bg-gray-700 rounded-lg overflow-hidden flex-shrink-0 w-full sm:w-1/2 lg:w-1/3 snap-start">
+                        <img src="https://images.unsplash.com/photo-1532187863486-abf9dbad1b69" alt="Lab equipment" class="w-full h-48 object-cover">
+                        <div class="p-4">
+                            <h3 class="font-semibold mb-2">Main Laboratory</h3>
+                            <p class="text-sm text-gray-300">Our state-of-the-art main laboratory equipped with advanced instruments.</p>
+                        </div>
+                    </div>
+                </div>
+        
+                <!-- Carousel Navigation Buttons -->
+                <button class="carousel-button left absolute top-1/2 transform -translate-y-1/2 left-4 bg-gray-800 text-white p-2 rounded-full hover:bg-gray-600">
+                    &#9664;
+                </button>
+                <button class="carousel-button right absolute top-1/2 transform -translate-y-1/2 right-4 bg-gray-800 text-white p-2 rounded-full hover:bg-gray-600">
+                    &#9654;
+                </button>
+            </div>
+        </section>
+        
+
+        <!-- Shelf Inventory Section -->
+        <section id="shelf-inventory" class="mb-0">
+            <h2 class="text-2xl font-bold mb-4">Shelf Inventory</h2>
+            <div class="cards grid grid-cols-2 md:grid-cols-2 gap-6" id="shelf-list">
+                <!-- Shelf items will be dynamically generated here -->
+            </div>
+            <br>
+            <br>
+            <br>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-center p-4 mt-0">
+        <p>&copy; 2024 Lab Inventory System. All rights reserved.</p><br>
+        <p>Contact Developers:</p>
+    <section class="flex justify-center space-x-[200px]">
+        <ul class='flex justify-center space-x-4 mt-2'>
+            <li>
+                <p>Dev:</p>
+            </li>
+            <li class="w-6">
+                <a href="https://www.linkedin.com/in/devjha09"><img src="https://pngimg.com/uploads/linkedIn/linkedIn_PNG7.png"></a>
+            </li>
+            <li class="w-6">
+                <a href="https://www.github.com/dev09003"><img src="https://cdn4.iconfinder.com/data/icons/social-media-and-logos-11/32/Logo_Github-1024.png"></a>
+            </li>
+            <li class="w-6">
+                <a href="https://www.niet.co.in/"><img src="https://th.bing.com/th/id/OIP.hbuRkuQ46Mm7aonMXpmhPAHaHa?rs=1&pid=ImgDetMain"></a>
+            </li>
+        </ul>
+        <ul class='flex justify-center space-x-4 mt-2'>
+            <li>
+                <p>Aman:</p>
+            </li>
+            <li class="w-6">
+                <a href="https://www.linkedin.com/in/aman-jha-543a40293/"><img src="https://pngimg.com/uploads/linkedIn/linkedIn_PNG7.png"></a>
+            </li>
+            <li class="w-6">
+                <a href="https://github.com/ak9102848"><img src="https://cdn4.iconfinder.com/data/icons/social-media-and-logos-11/32/Logo_Github-1024.png"></a>
+            </li>
+            <li class="w-6">
+                <a href="https://www.niet.co.in/"><img src="https://th.bing.com/th/id/OIP.hbuRkuQ46Mm7aonMXpmhPAHaHa?rs=1&pid=ImgDetMain"></a>
+            </li>
+        </ul>
+    </section>
+    </footer>
+
+    <!-- JavaScript Section -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+    const lowStockWarning = document.getElementById('low-stock-warning');
+    const lowStockList = document.getElementById('low-stock-list');
+    const expiredItemsList = document.getElementById('expired-items-list');
+
+    // Load low stock items
+    function loadLowStockItems() {
+    const lowStockItems = JSON.parse(localStorage.getItem('lowStockItems')) || [];
+    lowStockList.innerHTML = ''; // Clear the list
+
+    if (lowStockItems.length > 0) {
+        lowStockItems.forEach(item => {
+            const listItem = document.createElement('li');
+            listItem.classList.add('flex', 'items-center', 'justify-between', 'gap-0'); // Flexbox for alignment
+
+            // First span - badge for "Stock Low"
+            const badge = document.createElement('span');
+            badge.classList.add('bg-orange-500', 'text-black-900', 'text-xs', 'font-medium', 'px-2', 'py-1', 'rounded-full', 'ml-', 'mr-2');
+            badge.textContent = 'Stock Low';
+
+            // Second span - text for the low stock item
+            const text = document.createElement('span');
+            text.textContent = `${item}`; // Display the item
+            text.classList.add('mr-auto'); // Push text to the left with margin-right auto
+
+            // Append both spans to the list item
+            listItem.appendChild(badge);
+            listItem.appendChild(text);
+
+            // Append the list item to the lowStockList container
+            lowStockList.appendChild(listItem);
+        });
+        lowStockWarning.style.display = 'block'; // Show warning when items are present
+    } else {
+        lowStockWarning.style.display = 'none'; // Hide warning when no low stock items
+    }
+}
+
+loadLowStockItems(); // Load low stock items on page load
+
+
+    // Load expiring soon items
+    loadExpiringSoon();
+
+    function loadExpiringSoon() {
+        const expiringSoon = JSON.parse(localStorage.getItem('expiringSoon')) || [];
+        const recentActivities = document.getElementById('recent-activities');
+        recentActivities.innerHTML = '';
+
+        if (expiringSoon.length === 0) {
+            const noItems = document.createElement('li');
+            noItems.textContent = "No items are expiring soon.";
+            recentActivities.appendChild(noItems);
+            return;
+        }
+
+        expiringSoon.forEach(item => {
+            const listItem = document.createElement('li');
+            listItem.classList.add('flex', 'items-center', 'justify-between', 'gap-0');
+
+            const badge = document.createElement('span');
+            badge.classList.add('bg-yellow-500', 'text-black-900', 'text-xs', 'font-medium', 'px-2', 'py-1', 'rounded-full', 'ml-', 'mr-2');
+            badge.textContent = 'Expiring Soon';
+
+            const text = document.createElement('span');
+            text.textContent = `${item.name} expires on ${item.expiry}`; // Use backticks for template literals
+            text.classList.add('mr-auto')
+            listItem.appendChild(badge);
+            listItem.appendChild(text);
+            recentActivities.appendChild(listItem);
+        });
+    }
+
+    // Load expired items
+    loadExpiredItems();
+
+function loadExpiredItems() {
+    const expiredItems = JSON.parse(localStorage.getItem('expiredItems')) || [];
+    expiredItemsList.innerHTML = ''; // Clear the list
+
+    expiredItems.forEach(item => {
+        const listItem = document.createElement('li');
+        listItem.classList.add('flex', 'items-center', 'justify-between', 'gap-0'); // Flex styling for list items
+
+        // First span - badge for "Expired Items"
+        const badge2 = document.createElement('span');
+        badge2.classList.add('bg-red-500', 'text-black-900', 'text-xs', 'font-medium', 'px-2', 'py-1', 'rounded-full', 'ml-', 'mr-2');
+        badge2.textContent = 'Expired Items';
+
+        // Second span - text for each expired item
+        const text = document.createElement('span');
+        text.textContent = `${item}`; // Display the expired item
+        text.classList.add('mr-auto'); // Apply auto margin-right to push text to the left
+
+        // Append the spans to the list item
+        listItem.appendChild(badge2);
+        listItem.appendChild(text);
+        
+        // Append the list item to the expiredItemsList container
+        expiredItemsList.appendChild(listItem);
+    });
+
+    if (expiredItems.length === 0) {
+        const noItems = document.createElement('li');
+        noItems.textContent = "No expired items in the shelf.";
+        expiredItemsList.appendChild(noItems);
+    }
+}
+
+
+    // Load shelf inventory
+    loadShelfInventory();
+
+    function loadShelfInventory() {
+        const shelfInventory = JSON.parse(localStorage.getItem('shelfInventory')) || [
+            { name: 'Pipettes', shelf: 'A', row: '1' },
+            { name: 'Beakers', shelf: 'A', row: '2' },
+            { name: 'Flasks', shelf: 'A', row: '3' },
+            { name: 'Test Tubes', shelf: 'B', row: '1' },
+            { name: 'Graduated Cylinders', shelf: 'B', row: '2' },
+            { name: 'Burettes', shelf: 'B', row: '3' }
+        ];
+
+        const shelfList = document.getElementById('shelf-list');
+        shelfList.innerHTML = ''; // Clear previous items 
+
+        if (shelfInventory.length === 0) {
+            const noItems = document.createElement('div');
+            noItems.classList.add('bg-gray-700', 'rounded-lg', 'p-6');
+            noItems.textContent = "No items in shelf inventory.";
+            shelfList.appendChild(noItems);
+            return;
+        }
+
+        const shelves = {};
+        shelfInventory.forEach(item => {
+            if (!shelves[item.shelf]) {
+                shelves[item.shelf] = [];
+            }
+            shelves[item.shelf].push(item);
+        });
+
+        for (const shelf in shelves) {
+            const shelfDiv = document.createElement('div');
+            shelfDiv.classList.add('bg-gray-700', 'rounded-lg', 'p-6');
+
+            const shelfHeader = document.createElement('h3');
+            shelfHeader.classList.add('text-lg', 'font-semibold', 'mb-4');
+            shelfHeader.textContent = `Shelf ${shelf}`; // Use backticks for template literals
+            shelfDiv.appendChild(shelfHeader);
+
+            shelves[shelf].forEach(item => {
+                const itemText = document.createElement('p');
+                itemText.classList.add('text-sm', 'text-gray-300');
+                itemText.textContent = item.name;
+                shelfDiv.appendChild(itemText);
+            });
+
+            shelfList.appendChild(shelfDiv);
+        }
+    }
+});
+
+
+
+const carouselWrapper = document.querySelector('.carousel-wrapper');
+
+document.querySelector('.carousel-button.left').addEventListener('click', () => {
+    carouselWrapper.scrollBy({
+        left: -900, // Adjust this value for how far you want to scroll left
+        behavior: 'smooth'
+    });
+});
+
+document.querySelector('.carousel-button.right').addEventListener('click', () => {
+    carouselWrapper.scrollBy({
+        left:900, // Adjust this value for how far you want to scroll right
+        behavior: 'smooth'
+    });
+});
+
+
+
+</script>
+</body>
+</html>
